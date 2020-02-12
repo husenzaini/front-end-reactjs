@@ -25,6 +25,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+
+
+
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -137,7 +141,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PrimarySearchAppBar({openDrawer}) {
+export default function PrimarySearchAppBar({openDrawer, openDialog}) {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -246,7 +250,7 @@ export default function PrimarySearchAppBar({openDrawer}) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            Akal-Buku
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -317,9 +321,9 @@ export default function PrimarySearchAppBar({openDrawer}) {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Add product', 'Going', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index === 0 ? <ShoppingBasketIcon onClick={ openDialog}/> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}

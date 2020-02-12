@@ -10,6 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import AppBar from './AppBar';
+
+
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -19,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer({openDialog}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -92,7 +94,7 @@ export default function SwipeableTemporaryDrawer() {
 
   return (
     <div>
-      <AppBar openDrawer={toggleDrawer('right', true)}/> 
+      <AppBar openDrawer={toggleDrawer('right', true)} openDialog={openDialog}/> 
       <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
       <Button onClick={toggleDrawer('right', true)}>Open Right</Button>
       <Button onClick={toggleDrawer('top', true)}>Open Top</Button>

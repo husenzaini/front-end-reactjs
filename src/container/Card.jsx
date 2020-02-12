@@ -15,7 +15,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
+const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 345,
@@ -39,13 +42,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function RecipeReviewCard({product}) {
-//   console.log(product)  
+export default function RecipeReviewCard({product, clickOpen, clickConfirmDelete}) { 
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);  
+  const [expanded, setExpanded] = React.useState(false); 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl); 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  }
 
   return (
     <Card className={classes.root}>
@@ -56,22 +67,51 @@ export default function RecipeReviewCard({product}) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <div>
+          <IconButton aria-label="settings" onClick={handleClick}>
             <MoreVertIcon />
           </IconButton>
+          <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: 200,
+            },
+          }}
+          >
+            <MenuItem onClick={()=>{handleClose(); clickOpen()}}>
+            Edit 
+            </MenuItem>
+            <MenuItem onClick={()=>{handleClose(); clickConfirmDelete()}}>
+            Delete 
+            </MenuItem>
+      </Menu>
+          </div>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+
+        title="Andrea Hirata"
+        subheader="Februari, 2020"
       />
       <CardMedia
         className={classes.media}
         component="img"
-        src={product.image || 'https://i.ibb.co/RHZk0R7/Pavel-Durov.jpg'}
-        title="Paella dish"
+        src={product.image}
+        title="Andrea Hirata"
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-         {product.description}
+         {product.name}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+         {product.price}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+         {product.stock}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

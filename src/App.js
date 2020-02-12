@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import OpenRight from './container/OpenRight';
-import GridCard from './container/GridCard';
+import Home from './pages/Home';
 class App extends Component {
   render(){
     return (
     <div>
 
-      <OpenRight />
-      <GridCard />
+      <Home/>
     </div>
     );
   }
